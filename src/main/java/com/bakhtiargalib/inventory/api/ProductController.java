@@ -1,8 +1,8 @@
 package com.bakhtiargalib.inventory.api;
 
-import com.bakhtiargalib.inventory.entity.Product;
+import com.bakhtiargalib.inventory.persistence.entity.Product;
 import com.bakhtiargalib.inventory.exeption.ResourceNotFoundException;
-import com.bakhtiargalib.inventory.repository.ProductRepository;
+import com.bakhtiargalib.inventory.persistence.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;

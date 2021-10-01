@@ -1,4 +1,4 @@
-package com.bakhtiargalib.inventory.entity;
+package com.bakhtiargalib.inventory.persistence.entity;
 
 import lombok.Data;
 

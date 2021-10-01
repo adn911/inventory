@@ -31,4 +31,10 @@ public abstract class Persistent implements Serializable {
     protected void onUpdate() {
         updated = new Date();
     }
+
+    public abstract long getId();
+
+    public boolean isNew() {
+        return getId() == 0;
+    }
 }

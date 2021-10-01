@@ -1,12 +1,15 @@
 package com.bakhtiargalib.inventory.entity;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Objects;
 
+@Data
+@EqualsAndHashCode(of = {"id"})
 @Entity
-@Table
 public class Manufacturer extends Persistent {
 
     private static final long serialVersionUID = 1L;
@@ -16,7 +19,6 @@ public class Manufacturer extends Persistent {
     @SequenceGenerator(name = "manufacturerIdGenerator", sequenceName = "manufacturer_seq", allocationSize = 1)
     private long id;
 
-    @Size(max = 32)
     @Column(length = 32, nullable = false, updatable = false)
     private String code;
 
@@ -31,60 +33,4 @@ public class Manufacturer extends Persistent {
 
     @Lob
     private byte[] image;
-
-    public Manufacturer() {
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public byte[] getImage() {
-        return image;
-    }
-
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Manufacturer manufacturer = (Manufacturer) o;
-        return id == manufacturer.id;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
 }

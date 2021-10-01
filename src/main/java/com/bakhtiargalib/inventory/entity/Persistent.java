@@ -1,9 +1,12 @@
 package com.bakhtiargalib.inventory.entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
+@Data
 @MappedSuperclass
 public abstract class Persistent implements Serializable {
 
@@ -27,29 +30,5 @@ public abstract class Persistent implements Serializable {
     @PreUpdate
     protected void onUpdate() {
         updated = new Date();
-    }
-
-    public Date getCreated() {
-        return created;
-    }
-
-    public void setCreated(Date d) {
-        created = d;
-    }
-
-    public Date getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(Date d) {
-        updated = d;
-    }
-
-    public int getVersion() {
-        return version;
-    }
-
-    public void setVersion(int version) {
-        this.version = version;
     }
 }

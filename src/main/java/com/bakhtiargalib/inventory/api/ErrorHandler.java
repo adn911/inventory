@@ -1,4 +1,4 @@
-package com.bakhtiargalib.inventory.controller;
+package com.bakhtiargalib.inventory.api;
 
 import com.bakhtiargalib.inventory.exeption.ResourceNotFoundException;
 import org.springframework.http.HttpHeaders;
@@ -15,7 +15,7 @@ import static java.util.Objects.isNull;
 import static java.util.stream.Collectors.toMap;
 
 @ControllerAdvice
-public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
+public class ErrorHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler
     public ResponseEntity<?> handleResourceNotFoundException(ResourceNotFoundException exception) {

@@ -1,8 +1,8 @@
-package com.bakhtiargalib.inventory.controller;
+package com.bakhtiargalib.inventory.api;
 
-import com.bakhtiargalib.inventory.entity.Category;
+import com.bakhtiargalib.inventory.entity.Item;
 import com.bakhtiargalib.inventory.exeption.ResourceNotFoundException;
-import com.bakhtiargalib.inventory.repository.CategoryRepository;
+import com.bakhtiargalib.inventory.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
@@ -11,43 +11,43 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-@RequestMapping("/api/v1/categories")
+@RequestMapping("/api/v1/items")
 @RestController
-public class CategoryController {
+public class ItemController {
 
     @Autowired
-    private CategoryRepository categoryRepository;
+    private ItemRepository itemRepository;
 
     @GetMapping("/")
-    public ResponseEntity<List<Category>> list() {
+    public ResponseEntity<List<Item>> list() {
 
         return ResponseEntity.ok().body(
-                categoryRepository.findAll(Sort.by(Sort.Order.desc("updated")))
+                itemRepository.findAll(Sort.by(Sort.Order.desc("updated")))
         );
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Category> get(@PathVariable long id) {
+    public ResponseEntity<Item> get(@PathVariable long id) {
 
         return ResponseEntity.ok().body(
-                categoryRepository.findById(id)
+                itemRepository.findById(id)
                         .orElseThrow(ResourceNotFoundException::new)
         );
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Category> add(@Valid @RequestBody Category category) {
+    public ResponseEntity<Item> add(@Valid @RequestBody Item item) {
 
         return ResponseEntity.ok().body(
-                categoryRepository.save(category)
+                itemRepository.save(item)
         );
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Category> update(@PathVariable long id, @Valid @RequestBody Category category) {
+    public ResponseEntity<Item> update(@PathVariable long id, @Valid @RequestBody Item item) {
 
         return ResponseEntity.ok().body(
-                categoryRepository.findById(id).map(p -> categoryRepository.save(category))
+                itemRepository.findById(id).map(p -> itemRepository.save(item))
                         .orElseThrow(ResourceNotFoundException::new)
         );
     }
@@ -55,8 +55,8 @@ public class CategoryController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable long id) {
 
-        categoryRepository.delete(
-                categoryRepository.findById(id)
+        itemRepository.delete(
+                itemRepository.findById(id)
                         .orElseThrow(ResourceNotFoundException::new)
         );
 

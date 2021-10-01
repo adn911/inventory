@@ -1,12 +1,14 @@
 package com.bakhtiargalib.inventory.entity;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import java.util.Objects;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+import javax.persistence.*;
+import javax.validation.constraints.Size;
+
+@Data
+@EqualsAndHashCode(of = {"id"})
 @Entity
-@Table
 public class Item extends Persistent {
 
     private static final long serialVersionUID = 1L;
@@ -19,8 +21,6 @@ public class Item extends Persistent {
     @ManyToOne(optional = false)
     private Product product;
 
-    @Size(max = 32)
-    @NotNull
     @Column(length = 32, nullable = false, updatable = false)
     private String code;
 
@@ -30,60 +30,4 @@ public class Item extends Persistent {
 
     @Lob
     private byte[] image;
-
-    public Item() {
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public byte[] getImage() {
-        return image;
-    }
-
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Item item = (Item) o;
-        return id == item.id;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
 }

@@ -1,8 +1,8 @@
-package com.bakhtiargalib.inventory.controller;
+package com.bakhtiargalib.inventory.api;
 
-import com.bakhtiargalib.inventory.entity.Product;
+import com.bakhtiargalib.inventory.entity.Manufacturer;
 import com.bakhtiargalib.inventory.exeption.ResourceNotFoundException;
-import com.bakhtiargalib.inventory.repository.ProductRepository;
+import com.bakhtiargalib.inventory.repository.ManufacturerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
@@ -11,43 +11,43 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-@RequestMapping("/api/v1/products")
+@RequestMapping("/api/v1/manufacturers")
 @RestController
-public class ProductController {
+public class ManufacturerController {
 
     @Autowired
-    private ProductRepository productRepository;
+    private ManufacturerRepository manufacturerRepository;
 
     @GetMapping("/")
-    public ResponseEntity<List<Product>> list() {
+    public ResponseEntity<List<Manufacturer>> list() {
 
         return ResponseEntity.ok().body(
-                productRepository.findAll(Sort.by(Sort.Order.desc("updated")))
+                manufacturerRepository.findAll(Sort.by(Sort.Order.desc("updated")))
         );
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> get(@PathVariable long id) {
+    public ResponseEntity<Manufacturer> get(@PathVariable long id) {
 
         return ResponseEntity.ok().body(
-                productRepository.findById(id)
+                manufacturerRepository.findById(id)
                         .orElseThrow(ResourceNotFoundException::new)
         );
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Product> add(@Valid @RequestBody Product product) {
+    public ResponseEntity<Manufacturer> add(@Valid @RequestBody Manufacturer manufacturer) {
 
         return ResponseEntity.ok().body(
-                productRepository.save(product)
+                manufacturerRepository.save(manufacturer)
         );
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Product> update(@PathVariable long id, @Valid @RequestBody Product product) {
+    public ResponseEntity<Manufacturer> update(@PathVariable long id, @Valid @RequestBody Manufacturer manufacturer) {
 
         return ResponseEntity.ok().body(
-                productRepository.findById(id).map(p -> productRepository.save(product))
+                manufacturerRepository.findById(id).map(p -> manufacturerRepository.save(manufacturer))
                         .orElseThrow(ResourceNotFoundException::new)
         );
     }
@@ -55,8 +55,8 @@ public class ProductController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable long id) {
 
-        productRepository.delete(
-                productRepository.findById(id)
+        manufacturerRepository.delete(
+                manufacturerRepository.findById(id)
                         .orElseThrow(ResourceNotFoundException::new)
         );
 

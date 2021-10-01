@@ -1,12 +1,15 @@
 package com.bakhtiargalib.inventory.entity;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Objects;
 
+@Data
+@EqualsAndHashCode(of = {"id"})
 @Entity
-@Table
 public class Category extends Persistent {
 
     private static final long serialVersionUID = 1L;
@@ -27,52 +30,4 @@ public class Category extends Persistent {
 
     @Lob
     private byte[] image;
-
-    public Category() {
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public byte[] getImage() {
-        return image;
-    }
-
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Category category = (Category) o;
-        return id == category.id;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
 }

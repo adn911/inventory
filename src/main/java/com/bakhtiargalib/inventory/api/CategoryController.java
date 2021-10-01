@@ -1,8 +1,8 @@
-package com.bakhtiargalib.inventory.controller;
+package com.bakhtiargalib.inventory.api;
 
-import com.bakhtiargalib.inventory.entity.Manufacturer;
+import com.bakhtiargalib.inventory.entity.Category;
 import com.bakhtiargalib.inventory.exeption.ResourceNotFoundException;
-import com.bakhtiargalib.inventory.repository.ManufacturerRepository;
+import com.bakhtiargalib.inventory.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
@@ -11,43 +11,43 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-@RequestMapping("/api/v1/manufacturers")
+@RequestMapping("/api/v1/categories")
 @RestController
-public class ManufacturerController {
+public class CategoryController {
 
     @Autowired
-    private ManufacturerRepository manufacturerRepository;
+    private CategoryRepository categoryRepository;
 
     @GetMapping("/")
-    public ResponseEntity<List<Manufacturer>> list() {
+    public ResponseEntity<List<Category>> list() {
 
         return ResponseEntity.ok().body(
-                manufacturerRepository.findAll(Sort.by(Sort.Order.desc("updated")))
+                categoryRepository.findAll(Sort.by(Sort.Order.desc("updated")))
         );
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Manufacturer> get(@PathVariable long id) {
+    public ResponseEntity<Category> get(@PathVariable long id) {
 
         return ResponseEntity.ok().body(
-                manufacturerRepository.findById(id)
+                categoryRepository.findById(id)
                         .orElseThrow(ResourceNotFoundException::new)
         );
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Manufacturer> add(@Valid @RequestBody Manufacturer manufacturer) {
+    public ResponseEntity<Category> add(@Valid @RequestBody Category category) {
 
         return ResponseEntity.ok().body(
-                manufacturerRepository.save(manufacturer)
+                categoryRepository.save(category)
         );
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Manufacturer> update(@PathVariable long id, @Valid @RequestBody Manufacturer manufacturer) {
+    public ResponseEntity<Category> update(@PathVariable long id, @Valid @RequestBody Category category) {
 
         return ResponseEntity.ok().body(
-                manufacturerRepository.findById(id).map(p -> manufacturerRepository.save(manufacturer))
+                categoryRepository.findById(id).map(p -> categoryRepository.save(category))
                         .orElseThrow(ResourceNotFoundException::new)
         );
     }
@@ -55,8 +55,8 @@ public class ManufacturerController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable long id) {
 
-        manufacturerRepository.delete(
-                manufacturerRepository.findById(id)
+        categoryRepository.delete(
+                categoryRepository.findById(id)
                         .orElseThrow(ResourceNotFoundException::new)
         );
 
